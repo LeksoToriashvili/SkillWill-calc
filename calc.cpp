@@ -60,9 +60,46 @@ int romanToArabic(string s){
 	return number;
 }
 
-string arabicToRoman(int i){
-	string s;
-	return s;
+string arabicToRoman(int number){
+	string returnstring="";
+	int i=6;
+	string chars[] = {"I", "V", "X", "L", "C", "D", "M"};
+	int num [] = {1, 5, 10, 50, 100, 500, 1000};
+
+	if (number>3999) return "err";
+	if (number==0) return "";
+
+	while ((number/num[i])==0) i--;
+	if (number==num[i]) return chars[i];
+
+
+	if ((i%2)==1)
+		if (number>=(num[i]*9)/5)
+		{
+			returnstring=returnstring+chars[i-1]+chars[i+1];
+			number=number-(num[i]*9)/5;
+		}
+		else
+		{
+			returnstring=returnstring+chars[i];
+			number=number-num[i];
+		}
+
+	if ((i%2)==0)
+		if (number<4*num[i])
+		{
+			returnstring=returnstring+chars[i];
+			number=number-num[i];
+		}
+		else
+		{
+			returnstring=returnstring+chars[i]+chars[i+1];
+			number=number-num[i+1]+num[i];
+		}
+	cout << number << endl;
+	returnstring=returnstring+arabicToRoman(number);
+
+	return returnstring;
 }
 
 bool isOperatorValid(string s){
@@ -73,8 +110,10 @@ bool isOperatorValid(string s){
 int main()
 {
 	string rnumber;
-	cin >> rnumber;
-	if (isNumberValid(rnumber)==false) cout << "not valid" << endl;
-	cout << romanToArabic(rnumber) << endl;
+	int number;
+
+	cin >> number;
+	rnumber = arabicToRoman(number);
+	cout << rnumber << endl;
 	return 0;
 }
