@@ -3,6 +3,7 @@
 using namespace std;
 
 int romanToArabic(string s);
+string arabicToRoman(int number);
 
 int getInt(char c){
 	switch (c){
@@ -18,34 +19,8 @@ int getInt(char c){
 }
 
 bool isNumberValid(string s){
-	bool b=true;
-	int i, max=1000;
-
-	for (i=0; i<s.length(); i++){
-		if (getInt(s[i])==0) return false;
-		if ((s[i]=='V') || (s[i]=='L') || (s[i]=='D'))
-			if (s[i]==s[i+1]) return false;
-	}
-
-	if (s.length()==1) return true;
-
-	for (i=0; i<s.length()-1; i++){
-		if (getInt(s[i])>max) return false;
-
-		if (getInt(s[i])<getInt(s[i+1])){
-			if (getInt(s[i+1])>max) return false;
-			if ((getInt(s[i+1])/getInt(s[i]))!=5) 
-				if ((getInt(s[i+1])/getInt(s[i]))!=10) return false;
-			max=getInt(s[i]);
-			i++;
-		}
-		else
-		{
-			if (getInt(s[i])>max) return false;
-		}
-	}
-
-	return b;
+	if (arabicToRoman(romanToArabic(s))==s) return true;
+	return false;
 }
 
 int romanToArabic(string s){
@@ -103,14 +78,13 @@ string arabicToRoman(int number){
 }
 
 bool isOperatorValid(string s){
-	bool b=true;
 	if (s.length()>1) return false;
 	if (s!="+")
 		if(s!="-")
 			if (s!="X")
 				if (s!="/")
 					return false;
-	return b;
+	return true;
 }
 
 int main()
