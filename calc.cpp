@@ -41,7 +41,7 @@ bool isNumberValid(string s){
 		}
 		else
 		{
-			if (getInt(s[i])>max) return false;
+			//if (getInt(s[i])>max) return false;
 		}
 	}
 
@@ -96,24 +96,66 @@ string arabicToRoman(int number){
 			returnstring=returnstring+chars[i]+chars[i+1];
 			number=number-num[i+1]+num[i];
 		}
-	cout << number << endl;
+
 	returnstring=returnstring+arabicToRoman(number);
 
 	return returnstring;
 }
 
 bool isOperatorValid(string s){
-	bool b;
+	bool b=true;
+	if (s.length()>1) return false;
+	if (s!="=")
+		if(s!="-")
+			if (s!="X")
+				if (s!="/")
+					return false;
 	return b;
 }
 
 int main()
 {
-	string rnumber;
-	int number;
+	string rnumber, oper;
+	int ans=0;
 
-	cin >> number;
-	rnumber = arabicToRoman(number);
-	cout << rnumber << endl;
+
+	cout << "Enter Value: ";
+	while (true)
+	{
+		cin >> rnumber;
+		if (rnumber=="exit") return 0;
+		if (isNumberValid(rnumber)) break;
+		cout << "Number is not valid, enter again: ";
+	}
+	ans=romanToArabic(rnumber);
+
+	while(true)
+	{
+		cout << "Enter operator: ";
+		while(true)
+		{
+			cin >> oper;
+			if (oper=="exit") return 0;
+			if (isOperatorValid(oper)) break;
+			cout << "Operator is not valid, enter again: ";
+		}
+
+		cout << "Enter Value: ";
+		while (true)
+		{
+			cin >> rnumber;
+			if (rnumber=="exit") return 0;
+			if (isNumberValid(rnumber)) break;
+			cout << "Number is not valid, enter again: ";
+		}
+
+		if (oper=="-") ans=ans-romanToArabic(rnumber);
+		if (oper=="+") ans=ans+romanToArabic(rnumber);
+		if (oper=="X") ans=ans*romanToArabic(rnumber);
+		if (oper=="/") ans=ans/romanToArabic(rnumber);
+
+		cout << "ans: " << arabicToRoman(ans) << endl;
+	}
+
 	return 0;
 }
