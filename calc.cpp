@@ -41,7 +41,7 @@ bool isNumberValid(string s){
 		}
 		else
 		{
-			//if (getInt(s[i])>max) return false;
+			if (getInt(s[i])>max) return false;
 		}
 	}
 
