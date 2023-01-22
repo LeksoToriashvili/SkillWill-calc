@@ -105,7 +105,7 @@ string arabicToRoman(int number){
 bool isOperatorValid(string s){
 	bool b=true;
 	if (s.length()>1) return false;
-	if (s!="=")
+	if (s!="+")
 		if(s!="-")
 			if (s!="X")
 				if (s!="/")
